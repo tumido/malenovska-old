@@ -1,5 +1,5 @@
 """
-Django settings for myproject project.
+Django settings for malenovska project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'redactor',
+    'www',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -48,10 +50,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-# GETTING-STARTED: change 'myproject' to your project name:
-ROOT_URLCONF = 'myproject.urls'
+# GETTING-STARTED: change 'malenovska' to your project name:
+ROOT_URLCONF = 'malenovska.urls'
 
-WSGI_APPLICATION = 'myproject.wsgi.application'
+WSGI_APPLICATION = 'malenovska.wsgi.application'
 
 
 # Database
@@ -68,9 +70,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'cs-cz'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Prague'
 
 USE_I18N = True
 
@@ -78,9 +80,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+REDACTOR_OPTIONS = {'lang': 'en'}
+REDACTOR_UPLOAD = 'uploads/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+
+from django.contrib.messages import constants as msg_const
+MESSAGE_TAGS = { msg_const.ERROR: 'danger'}

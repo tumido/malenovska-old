@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html {% block html_attribs %}{% endblock html_attribs %}>
+  <head>
+    <title>{% block title %}Malenovská prašť{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block imports %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-theme.css' %}" />
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link href='https://fonts.googleapis.com/css?family=Kalam:400&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    {% endblock imports %}
+  </head>
+  <body {% block body_attribs %}{% endblock body_attribs %}>
+    <div id='wrap'>
+    {% block navbar %}
+      <div class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/"><img src="{% static 'img/malenovska_logo.svg' %}"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/legends">Legendy</a></li>
+            <li><a href="/rules">Pravidla</a></li>
+            <li><a href="/info">Důležité informace</a></li>
+            <li><a href="/players">Přihlášení účastníci</a></li>
+            <li class="active"><a  href="/register">Registrace</a></li>
+          </ul>
+        </div>
+      </div>
+    {% endblock navbar %}
+    {% if messages %}
+      <div class='container' id='message'>
+      {% for message in messages %}
+        <div id='inner-message' class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+      {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}
+    {% endblock content %}
+    </div>
+    <div id='push'></div>
+    <footer id="footer">
+      <div class="container">
+        <p class="text-muted">Všechny použité obrázky jsou duševním vlastnictvím členů organizačního týmu nebo jsou použity v souladu s licencí</p>
+        <p class="text-muted">Obrázek na pozadí převzat od <a class='text-muted' href='http://picalls.com/fog-in-the-forest-by-traveling-julie/'>Traveling Julie</a>, <a class='text-muted' href='http://creativecommons.org/licenses/by-nc-nd/4.0/'>licence</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='container bg'>
+  <div class='row'>
+    <h1 class="page-header">Přihlaš se</h1>
+    <div class='col-md-6'>
+    <p>Akce je určená pro nováčky a začátečníky, protože jich tam bývá více a tak se nemusí stydět :) Pro zkušenější bojovníky máme připravené role CPček, takže i veteráni si zajisté přijdou na své.
+    <p><b>Všichni účastníci mladší 18 let s sebou musí mít potvrzení o tom, že rodiče souhlasí s jejich účastí na akci!</b>
+    <p>Je velká pravděpodobnost, že se na bitvě či kolem ní potkáte s některým z příslušníků tohoto pradávného uskupení. Jsou to nedotknutelní patroni této události a je přísně zakázáno je jakkoli napadat či ohrožovat. Ba naopak, je záhodno častovat je vlídným slovem, hezkou pózou či bojovným výrazem na objektiv. Jsou zde pro vás.
+Poznáte je podle 2 věcí:
+1) Každý má u sebe zvláštní předmět, je to Magická skříňka "Boxus Foťákus" (někdy i mocný Boxus Foťákus Zrcadlovkus) předmět tvořící blesky a uchovávající zážitky z krásných chvil boje, odpočinku a celkové atmosféry.
+
+2) Nosívají řádový nenápadný hábit, plášť či jiný oblek nerušící atmosféru s nevyráznými modernímy prvky. Nebo oblečení výrazně stylové podle poslední řádové módy taktéž nekazící celkový dojem z bitvy.
+    </div>
+    <form action="" method="post" class='col-md-6'>
+    {% csrf_token %}
+      {% for field in form %}
+      <div class="input-group form-group">
+        <span class="input-group-addon">{{ field.field.widget.attrs.label}}</span>
+          {{ field }}
+      </div>
+      {% endfor %}
+      <input type="submit" class='form-control' value="Submit" />
+    </form>
+  </div>
+</div>
+{% endblock content %}
