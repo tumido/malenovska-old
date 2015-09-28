@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='container bg'>
+  <div class='row'>
+    <h1 class='page-header'>Důležité informace</h1>
+    {{ info_general|safe }}
+    {{ info_map|safe }}
+  </div>
+</div>
+{% endblock content %}

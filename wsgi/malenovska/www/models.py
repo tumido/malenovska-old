@@ -7,6 +7,8 @@ class Race(models.Model):
     description = RedactorField('Popis')
     icon = models.ImageField('Obrázek', blank=True)
     active = models.BooleanField('Letos bojuje')
+    fraction = models.PositiveSmallIntegerField('Frakce')
+    limit = models.PositiveSmallIntegerField('Max. hráčů')
 
     class Meta:
         verbose_name = 'Rasa'
@@ -25,6 +27,7 @@ class Player(models.Model):
     race = models.ForeignKey(Race, verbose_name='Bojuje za')
     date = models.DateTimeField('Datum registrace')
     ip = models.GenericIPAddressField('IP adresa')
+    group = models.CharField('Skupina', max_length=200, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Ragistrovaný hráč'
@@ -62,13 +65,13 @@ class News(models.Model):
 
 
 class AboutWidget(models.Model):
-    rank = models.PositiveIntegerField('Pozice na strance', primary_key=True)
     name = models.CharField('Nadpis', max_length=200)
+    identifier = models.CharField('Identifikator pro stranku', max_length=200)
     text = RedactorField()
 
     class Meta:
-        verbose_name = 'Panel v "Kontakty" etc.'
-        verbose_name_plural = 'Sekce "Kontakty" apod.'
+        verbose_name = 'Panely a texty všude možně'
+        verbose_name_plural = 'Panely a texty všude možně'
 
     def __str__(self):
-        return self.name
+        return "{0} (identifier: '{1}')".format(self.name, self.identifier)

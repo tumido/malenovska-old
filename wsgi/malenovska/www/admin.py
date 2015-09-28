@@ -8,8 +8,8 @@ class PlayerAdmin(admin.ModelAdmin):
     ]
 class RaceAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': [('name', 'active')]}),
-        ('Popis', {'fields': ['icon', 'description'], 'classes': ['collapse']}),
+        (None,               {'fields': [('name', 'active', 'limit')]}),
+        ('Popis', {'fields': ['icon', 'fraction', 'description'], 'classes': ['collapse']}),
     ]
 
 

@@ -10,11 +10,11 @@ setup(
     # GETTING-STARTED: set your app description:
     description='OpenShift App for www.malenovska.cz web site',
     # GETTING-STARTED: set author name (your name):
-    author='Tmosa Coufal',
+    author='Tomas Coufal',
     # GETTING-STARTED: set author email (your email):
     author_email='coufal.tom@gmail.com',
     # GETTING-STARTED: set author url (your url):
     url='http://www.python.org/sigs/distutils-sig/',
     # GETTING-STARTED: define required django version:
-    install_requires=['Django<=1.8', 'mysql<=15.1'],
+    install_requires=['Django<=1.8'],
 )

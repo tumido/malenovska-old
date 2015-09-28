@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.contrib import messages
 
-from .models import Race, Player, Legend
+from .models import Race, Player, Legend, AboutWidget
 from .forms import RegisterForm
 
 class IndexView(generic.ListView):
@@ -22,6 +22,9 @@ class RegisterView(generic.CreateView):
 
     def form_valid(self, form):
         player = form.save(commit=False)
+        if len(Player.objects.filter(race=player.race)) + 1 >= player.race.limit:
+            form.errors['overlimit'] = 'prekrocen limit pro rasu'
+            return self.form_invalid(form)
         player.ip = self.request.META['REMOTE_ADDR']
         player.date = timezone.localtime(timezone.now())
         player.save()
@@ -29,11 +32,19 @@ class RegisterView(generic.CreateView):
         return super(RegisterView, self).form_valid(form)
 
     def form_invalid(self, form):
-        if '__all__' in form.errors.keys():
+        if 'overlimit' in form.errors.keys():
+            messages.error(self.request, 'Neregistrováno: Překročen limit strany')
+        elif '__all__' in form.errors.keys():
             messages.error(self.request, 'Neregistrováno: Takový bojovník již existuje')
         else:
             messages.error(self.request, 'Neregistrováno: Zkontrolujte údaje')
         return super(RegisterView, self).form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(RegisterView, self).get_context_data(**kwargs)
+        for text in AboutWidget.objects.filter(identifier__contains='register'):
+            context[text.identifier] = text.text
+        return context
 
 class LegendView(generic.ListView):
     template_name = 'legends.html'
@@ -41,3 +52,23 @@ class LegendView(generic.ListView):
 
     def get_queryset(self):
         return Legend.objects.order_by('-id')
+
+class PlayersView(generic.ListView):
+    template_name = 'players.html'
+    context_object_name = 'players_list'
+
+    def get_queryset(self):
+        races = Race.objects.filter(active=True).order_by('-fraction', '-name')
+        return [(r, Player.objects.filter(race=r.id).order_by('-surname')) for r in races]
+
+class InfoView(generic.ListView):
+    template_name = 'info.html'
+
+    def get_queryset(self):
+        return []
+
+    def get_context_data(self, **kwargs):
+        context = super(InfoView, self).get_context_data(**kwargs)
+        for text in AboutWidget.objects.filter(identifier__contains='info'):
+            context[text.identifier] = text.text
+        return context
