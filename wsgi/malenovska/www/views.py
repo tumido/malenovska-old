@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.contrib import messages
 
-from .models import Race, Player, Legend, AboutWidget
+from .models import Race, Player, Legend, AboutWidget, DateOptions, TextOptions
 from .forms import RegisterForm
 
 class IndexView(generic.ListView):
@@ -74,14 +74,16 @@ class WorldView(generic.ListView):
 
 class InfoView(generic.ListView):
     template_name = 'info.html'
+    context_object_name = 'dates'
 
     def get_queryset(self):
-        return []
+        return DateOptions.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super(InfoView, self).get_context_data(**kwargs)
         for text in AboutWidget.objects.filter(identifier__contains='info'):
             context[text.identifier] = text.text
+        context['texts'] = TextOptions.objects.filter(identifier__contains='important')
         return context
 
 class RulesView(generic.ListView):

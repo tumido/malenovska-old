@@ -3,7 +3,31 @@
 <div class='container bg'>
   <div class='row'>
     <h1 class='page-header'>Důležité informace</h1>
-    {{ info_general|safe }}
+      <div class='col-md-6'>
+        {{ info_general|safe }}
+      </div>
+      <div class='col-md-6'>
+        {% for datum in dates %}
+        <div class='row'>
+          <div class="panel panel-horizontal panel-default">
+            <div class="panel-body">{{datum.date}}
+            </div>
+            <div class="panel-heading">{{datum.name}}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% for text in texts%}
+        <div class='row'>
+          <div class="panel panel-horizontal panel-default">
+            <div class="panel-body">{{text.text}}
+            </div>
+            <div class="panel-heading">{{text.name}}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
   </div>
 </div>
 <div class='container bg'>
