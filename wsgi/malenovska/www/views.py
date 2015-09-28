@@ -65,6 +65,13 @@ class WorldView(generic.ListView):
     def get_queryset(self):
         return Race.objects.filter(active=True).order_by('-fraction', '-name')
 
+    def get_context_data(self, **kwargs):
+        context = super(WorldView, self).get_context_data(**kwargs)
+        text = AboutWidget.objects.get(identifier='world_characteristics')
+        context[text.identifier] = text.text
+        return context
+
+
 class InfoView(generic.ListView):
     template_name = 'info.html'
 
@@ -75,4 +82,16 @@ class InfoView(generic.ListView):
         context = super(InfoView, self).get_context_data(**kwargs)
         for text in AboutWidget.objects.filter(identifier__contains='info'):
             context[text.identifier] = text.text
+        return context
+
+class RulesView(generic.ListView):
+    template_name = 'rules.html'
+
+    def get_queryset(self):
+        return []
+
+    def get_context_data(self, **kwargs):
+        context = super(RulesView, self).get_context_data(**kwargs)
+        text = AboutWidget.objects.get(identifier='rules')
+        context[text.identifier] = text.text
         return context

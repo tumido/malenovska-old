@@ -31,13 +31,15 @@ $(document).ready(function() {
     </form>
     {% else %}
     <div class='col-md-6'>
-      
+      Blocked
     </div>
     {% endif %}
   </div>
   <div class='row'>
   {{register_down|safe}}
   </div>
+</div>
+<div class='container bg'>
   <div class='row'>
     <h1 class='page-header' id='signed-up'>Přihlášení hráči</h1>
   </div>
@@ -54,7 +56,7 @@ $(document).ready(function() {
         <div class='col-md-2'>
           <div class="panel panel-default">
             <div class="panel-body">
-              <p><b>{{player.nick}}</b></br>
+              <p><b>{% if player.nick %}{{player.nick}}{% else %}{{player.name}}{%endif%}</b></br>
               {{player.name}} {{player.surname}}</br>
               {{player.group}}</p>
             </div>

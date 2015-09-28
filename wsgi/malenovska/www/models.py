@@ -21,7 +21,7 @@ class Race(models.Model):
 class Player(models.Model):
     name = models.CharField('Jméno', max_length=200)
     surname = models.CharField('Příjmení', max_length=200)
-    nick = models.CharField('Přezdívka', max_length=200)
+    nick = models.CharField('Přezdívka', max_length=200, null=True, blank=True)
     age = models.PositiveSmallIntegerField('Věk', validators=[MinValueValidator(10)])
     #email = models.EmailField()
     race = models.ForeignKey(Race, verbose_name='Bojuje za')
