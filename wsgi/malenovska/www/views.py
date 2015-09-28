@@ -4,15 +4,13 @@ from django.http import HttpResponse
 from django.views import generic
 from django.contrib import messages
 
-from .models import Race, Player, Legend, AboutWidget, DateOptions, TextOptions
+from .models import News, Race, Player, Legend, AboutWidget, DateOptions, TextOptions
 from .forms import RegisterForm
 
-class IndexView(generic.ListView):
-    template_name = 'index.html'
-    context_object_name = 'race_list'
-
-    def get_queryset(self):
-        return Race.objects.order_by('-name')
+def enable_form():
+    start = timezone.localtime(DateOptions.objects.get(identifier='register_unlock').date)
+    stop = timezone.localtime(DateOptions.objects.get(identifier='register_lock').date)
+    return start < timezone.now() < stop
 
 class RegisterView(generic.CreateView):
     template_name = 'register.html'
@@ -20,9 +18,15 @@ class RegisterView(generic.CreateView):
     form_class = RegisterForm
     success_url = '/register/'
 
+    def get_form(self, form_class=None):
+        if not enable_form():
+            return None
+        return super(RegisterView, self).get_form(form_class)
+
+
     def form_valid(self, form):
         player = form.save(commit=False)
-        if len(Player.objects.filter(race=player.race)) + 1 >= player.race.limit:
+        if len(Player.objects.filter(race=player.race)) + 1 > player.race.limit:
             form.errors['overlimit'] = 'prekrocen limit pro rasu'
             return self.form_invalid(form)
         player.ip = self.request.META['REMOTE_ADDR']
@@ -51,12 +55,14 @@ class RegisterView(generic.CreateView):
 
         return context
 
+
 class LegendView(generic.ListView):
     template_name = 'legends.html'
     context_object_name = 'legends_list'
 
     def get_queryset(self):
         return Legend.objects.order_by('-id')
+
 
 class WorldView(generic.ListView):
     template_name = 'world.html'
@@ -86,6 +92,7 @@ class InfoView(generic.ListView):
         context['texts'] = TextOptions.objects.filter(identifier__contains='important')
         return context
 
+
 class RulesView(generic.ListView):
     template_name = 'rules.html'
 
@@ -97,3 +104,11 @@ class RulesView(generic.ListView):
         text = AboutWidget.objects.get(identifier='rules')
         context[text.identifier] = text.text
         return context
+
+
+class NewsView(generic.ListView):
+    template_name = 'news.html'
+    context_object_name = 'news_list'
+
+    def get_queryset(self):
+        return News.objects.filter(date__lt=timezone.now()).order_by('-date')

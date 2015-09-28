@@ -76,6 +76,7 @@ class AboutWidget(models.Model):
     def __str__(self):
         return "{0} (identifier: '{1}')".format(self.name, self.identifier)
 
+
 class DateOptions(models.Model):
     name = models.CharField('Událost', max_length=200)
     identifier = models.CharField('Identifikator', max_length=200)
@@ -87,6 +88,7 @@ class DateOptions(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class TextOptions(models.Model):
     name = models.CharField('Předmět', max_length=200)

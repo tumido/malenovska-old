@@ -14,12 +14,12 @@ $(document).ready(function() {
 {% block content %}
 <div class='container bg'>
   <div class='row'>
-    <h1 class="page-header" id='new-player'>Přihlaš se</h1>
+    <h1 class="page-header" id='new-player'>Přihlas se</h1>
     <div class='col-md-6'>
     {{register_beside_form|safe}}
     </div>
-    {% if registration_open %}
-    <form action="" method="post" class='col-md-6'>
+    {% if form %}
+    <form action="" method="post" class='col-md-6 pad-bottom'>
     {% csrf_token %}
       {% for field in form %}
       <div class="input-group form-group">
@@ -31,7 +31,12 @@ $(document).ready(function() {
     </form>
     {% else %}
     <div class='col-md-6'>
-      Blocked
+      <div class="panel panel-default">
+        <div class="panel-body center">
+          <h3>Registrace bude brzy spuštěna</h3>
+          <p>A až se tak stane, zde naleznete registrační formulář</p>
+        </div>
+      </div>
     </div>
     {% endif %}
   </div>
@@ -39,6 +44,7 @@ $(document).ready(function() {
   {{register_down|safe}}
   </div>
 </div>
+{% if form %}
 <div class='container bg'>
   <div class='row'>
     <h1 class='page-header' id='signed-up'>Přihlášení hráči</h1>
@@ -69,4 +75,5 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock content %}

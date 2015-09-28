@@ -385,6 +385,7 @@ fieldset[disabled] .btn-danger.active {
 }
 .navbar-inverse ul {
     margin-top: 80px;
+    padding-right: 40px;
 }
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -645,16 +646,12 @@ input[type=number] {
 .alert {
     text-align: center;
 }
-
-
 /* Sticky footer styles
 -------------------------------------------------- */
-
 html,
 body {
     height: 100%;
 }
-
 /* Wrapper for page content to push down footer */
 #wrap {
     min-height: 100%;
@@ -663,13 +660,11 @@ body {
 /* Negative indent footer by it's height */
     margin: 0 auto -60px;
 }
-
 /* Set the fixed height of the footer here */
 #push,
 #footer {
     height: 60px;
 }
-
 /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
 #footer {
@@ -679,7 +674,6 @@ body {
     padding-right: 20px;
 }
 }
-
 .table > tbody > tr > td {
     border: none;
 }
@@ -702,6 +696,7 @@ body {
 .panel-horizontal {
        border: 0px none;
        margin: 10px;
+       margin-bottom: 20px;
 }
 .panel-horizontal .panel-heading {
        float: right;
@@ -728,4 +723,10 @@ body {
        border-radius: 4px;
        border-top-left-radius: 0;
        border-bottom-left-radius: 0;
+}
+.center {
+    text-align: center;
+}
+.pad-bottom {
+    padding-bottom: 10px;
 }
