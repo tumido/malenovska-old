@@ -44,6 +44,11 @@ class RegisterView(generic.CreateView):
         context = super(RegisterView, self).get_context_data(**kwargs)
         for text in AboutWidget.objects.filter(identifier__contains='register'):
             context[text.identifier] = text.text
+        context['registration_open'] = True
+
+        races = Race.objects.filter(active=True).order_by('-fraction', '-name')
+        context['players_list'] = [(r, Player.objects.filter(race=r.id).order_by('-surname')) for r in races]
+
         return context
 
 class LegendView(generic.ListView):
@@ -53,13 +58,12 @@ class LegendView(generic.ListView):
     def get_queryset(self):
         return Legend.objects.order_by('-id')
 
-class PlayersView(generic.ListView):
-    template_name = 'players.html'
-    context_object_name = 'players_list'
+class WorldView(generic.ListView):
+    template_name = 'world.html'
+    context_object_name = 'races'
 
     def get_queryset(self):
-        races = Race.objects.filter(active=True).order_by('-fraction', '-name')
-        return [(r, Player.objects.filter(race=r.id).order_by('-surname')) for r in races]
+        return Race.objects.filter(active=True).order_by('-fraction', '-name')
 
 class InfoView(generic.ListView):
     template_name = 'info.html'

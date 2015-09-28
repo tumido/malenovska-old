@@ -3,7 +3,7 @@
 <div class='container bg'>
   {% for legend in legends_list %}
   <div class='row'>
-    <h1 class='page-header'>{{legend.name}}</h1>
+    <h1 class='page-header' id='legend-{{legend.id}}'>{{legend.name}}</h1>
     {{legend.text|safe}}
   </div>
   {% endfor %}
