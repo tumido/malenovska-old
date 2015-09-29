@@ -15,14 +15,14 @@ $(document).ready(function() {
 <div class='container bg'>
   <div class='row'>
     <h1 class="page-header" id='new-player'>Přihlas se</h1>
-    <div class='col-md-6'>
+    <div class='col-md-7'>
     {{register_beside_form|safe}}
     </div>
     {% if form %}
-    <form action="" method="post" class='col-md-6 pad-bottom'>
+    <form action="" method="post" class='col-md-5 pad-bottom'>
     {% csrf_token %}
       {% for field in form %}
-      <div class="input-group form-group">
+      <div class="input-group form-group{% if field.field.required %} required{% endif %}">
         <span class="input-group-addon">{{ field.field.widget.attrs.label}}</span>
           {{ field }}
       </div>
@@ -59,12 +59,17 @@ $(document).ready(function() {
       {% for race, players in players_list %}
       <div role="tabpanel" class="tab-pane fade" id="race{{race.id}}">
         {% for player in players %}
-        <div class='col-md-2'>
+        <div class='col-md-3'>
           <div class="panel panel-default">
             <div class="panel-body">
+              <div class='col-xs-4'>
+                <span class="glyphicon glyphicon-user"></span>
+              </div>
+              <div class='col-xs-8'>
               <p><b>{% if player.nick %}{{player.nick}}{% else %}{{player.name}}{%endif%}</b></br>
               {{player.name}} {{player.surname}}</br>
-              {{player.group}}</p>
+              <i>{% if player.group %}{{player.group}}{% else %}</br>{%endif%}</i></p>
+              </div>
             </div>
           </div>
         </div>
