@@ -314,7 +314,8 @@ body {
 }
 .form-group.required .input-group-addon:after {
   content:"*";
-  color:red;
+  font-size: 1.2em;
+  color: #000;
 }
 span.glyphicon-user {
   padding-top: 20px;
