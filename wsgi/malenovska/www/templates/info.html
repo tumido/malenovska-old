@@ -8,10 +8,10 @@
 <div class='container bg'>
   <div class='row'>
     <h1 class='page-header'>Důležité informace</h1>
-      <div class='col-md-6'>
+      <div class='col-md-7'>
         {{ info_general|safe }}
       </div>
-      <div class='col-md-6 pad-bottom'>
+      <div class='col-md-5 pad-bottom'>
         {% for datum in dates %}
         <div class='row'>
           <div class="panel panel-horizontal panel-default">
@@ -93,7 +93,7 @@
     dataProvider.enable();
     map.addDefaultLayer(SMap.DEF_TRAIL).enable();
     map.addDefaultLayer(SMap.DEF_BIKE).enable();
-    
+
     SMap.Control.Points = JAK.ClassMaker.makeClass({
                      NAME: "SMap.Control.Points",
                      VERSION: "1.0",
