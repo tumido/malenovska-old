@@ -94,7 +94,7 @@ from django.contrib.messages import constants as msg_const
 MESSAGE_TAGS = { msg_const.ERROR: 'danger'}
 
 MEDIA_URL = '/media/'
-if ON_PAAS:
+if 'on_localhost' not in os.environ:
     MEDIA_ROOT = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR'), 'media')
 else: 
     MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
