@@ -54,6 +54,8 @@ class RegisterView(generic.CreateView):
         races = Race.objects.filter(active=True).order_by('-fraction', '-name')
         context['players_list'] = [(r, Player.objects.filter(race=r.id).order_by('-surname')) for r in races]
 
+        context['after_register_open'] = timezone.localtime(DateOptions.objects.get(identifier='register_unlock').date) < timezone.now()
+
         return context
 
 

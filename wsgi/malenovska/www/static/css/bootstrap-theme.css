@@ -352,3 +352,13 @@ span.glyphicon-user {
   color: #fff;
   font-weight: bold;
 }
+.line .label {
+    padding: 0;
+    font-weight: normal;
+    line-height: 1.3em;
+    border-radius: 2px;
+}
+.media-object {
+    height: 300px;
+    width: 500px;
+}
