@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils import timezone
 from django.http import HttpResponse
 from .models import Race, Player, Legend, News, AboutWidget, DateOptions, TextOptions, MapPoints
 
@@ -49,6 +50,14 @@ class PlayerAdmin(admin.ModelAdmin):
         (None,               {'fields': [('nick', 'name', 'surname'), ('race', 'age')]}),
         ('Detaily', {'fields': ['email', 'date', 'ip'], 'classes': ['collapse']}),
     ]
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(PlayerAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['date'].initial = timezone.now()
+        form.base_fields['ip'].initial = '0.0.0.0'
+        return form
+
+
 class RaceAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('name', 'active', 'limit')]}),
@@ -61,20 +70,24 @@ class LegendAdmin(admin.ModelAdmin):
         (None,               {'fields': [('name', 'race'), 'text']}),
     ]
 
+
 class DateOptionsAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('name', 'identifier'), 'date']}),
     ]
+
 
 class TextOptionsAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('name', 'identifier'), 'text']}),
     ]
 
+
 class MapAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('title', 'lat', 'long')]}),
     ]
+
 
 admin.site.register(Race, RaceAdmin)
 admin.site.register(Player, PlayerAdmin)

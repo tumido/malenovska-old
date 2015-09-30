@@ -51,22 +51,22 @@
     var coords = [];
 
     for (var i in data) {
-        var c = SMap.Coords.fromWGS84(data[i][1]);
+        var c = SMap.Coords.fromWGS84(data[i][2]);
 
         var visual = JAK.mel("div");
         var image = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
         visual.appendChild(image);
         var tooltip = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
-        tooltip.innerHTML = i
+        tooltip.innerHTML = data[i][0]
         visual.appendChild(tooltip);
 
-        var options = { title:data[i][0],
+        var options = { title:data[i][1],
                         anchor: {left:10, bottom: 1},
                         url: visual};
 
         var pt = new SMap.Marker(c, null, options);
         var card = new SMap.Card();
-        card.getHeader().innerHTML = "<strong>"+ data[i][0] +"</strong>";
+        card.getHeader().innerHTML = "<strong>"+ data[i][1] +"</strong>";
         pt.decorate(SMap.Marker.Feature.Card, card);
 
         coords.push(c);
@@ -104,14 +104,14 @@
         this._dom.container = JAK.mel("div", {className: "trasy"});
         this._dom.container.innerHTML =
         "<div class='legend'><div class='row'>\
-        {% for item, value in map_points.items%}\
+        {% for item in map_points%}\
         <div class='row'>\
         <div class='col-xs-1'>\
         <img src='"+SMap.CONFIG.img+"/marker/drop-red.png'></img>\
-        <span class='map-label'>{{item}}</span>\
+        <span class='map-label'>{{item.0|safe}}</span>\
         </div>\
         <div class='col-xs-11'>\
-        {{value.0}}\
+        {{item.1|safe}}\
         </div>\
         </div>{% endfor %}\
         </div>";

@@ -91,11 +91,11 @@ class InfoView(generic.ListView):
         for text in AboutWidget.objects.filter(identifier__contains='info'):
             context[text.identifier] = text.text
         context['texts'] = TextOptions.objects.filter(identifier__contains='important')
-        context['map_points'] = dict()
+        context['map_points'] = list()
         for i,point in enumerate(MapPoints.objects.all().order_by('id')):
             ch = ascii_uppercase[i]
-            context['map_points'][ch] = [point.title,
-                                               "{0},{1}".format(point.long, point.lat)]
+            context['map_points'].append([ch, point.title,
+                                               "{0},{1}".format(point.long, point.lat)])
         return context
 
 
