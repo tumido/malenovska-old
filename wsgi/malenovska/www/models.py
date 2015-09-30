@@ -5,7 +5,7 @@ from django.core.validators import MinValueValidator
 class Race(models.Model):
     name = models.CharField('Jméno rasy', max_length=200)
     description = RedactorField('Popis')
-    icon = models.ImageField('Obrázek', upload_to='static/race_img/', blank=True)
+    icon = models.ImageField('Obrázek', upload_to='race_img/', blank=True)
     active = models.BooleanField('Letos bojuje')
     fraction = models.PositiveSmallIntegerField('Frakce')
     limit = models.PositiveSmallIntegerField('Max. hráčů')
