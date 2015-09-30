@@ -102,3 +102,15 @@ class TextOptions(models.Model):
 
     def __str__(self):
         return self.name
+
+class MapPoints(models.Model):
+    title = models.CharField('Název', max_length=200)
+    long = models.CharField('Zeměpisná délka', max_length=200)
+    lat = models.CharField('Zeměpisná šířka', max_length=200)
+
+    class Meta:
+        verbose_name = 'Bod na mapě'
+        verbose_name_plural = 'Nastavení - Mapa'
+
+    def __str__(self):
+        return self.title

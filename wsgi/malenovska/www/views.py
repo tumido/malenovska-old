@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.contrib import messages
 
-from .models import News, Race, Player, Legend, AboutWidget, DateOptions, TextOptions
+from .models import News, Race, Player, Legend, AboutWidget, DateOptions, TextOptions, MapPoints
 from .forms import RegisterForm
 
 def enable_form():
@@ -90,6 +90,9 @@ class InfoView(generic.ListView):
         for text in AboutWidget.objects.filter(identifier__contains='info'):
             context[text.identifier] = text.text
         context['texts'] = TextOptions.objects.filter(identifier__contains='important')
+        context['map_points'] = dict()
+        for point in MapPoints.objects.all():
+            context['map_points'][point.title] = "{0},{1}".format(point.long, point.lat)
         return context
 
 

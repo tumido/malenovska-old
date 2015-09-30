@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.http import HttpResponse
-from .models import Race, Player, Legend, News, AboutWidget, DateOptions, TextOptions
+from .models import Race, Player, Legend, News, AboutWidget, DateOptions, TextOptions, MapPoints
 
 def export_xlsx(modeladmin, request, queryset):
     import openpyxl
@@ -71,10 +71,16 @@ class TextOptionsAdmin(admin.ModelAdmin):
         (None,               {'fields': [('name', 'identifier'), 'text']}),
     ]
 
+class MapAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': [('title', 'lat', 'long')]}),
+    ]
+
 admin.site.register(Race, RaceAdmin)
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Legend, LegendAdmin)
 admin.site.register(News)
 admin.site.register(AboutWidget)
+admin.site.register(MapPoints,MapAdmin)
 admin.site.register(DateOptions, DateOptionsAdmin)
 admin.site.register(TextOptions, TextOptionsAdmin)
