@@ -26,6 +26,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+ADMINS = ('Tumi', 'coufal.tom@gmail.com')
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -91,5 +93,5 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 from django.contrib.messages import constants as msg_const
 MESSAGE_TAGS = { msg_const.ERROR: 'danger'}
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/malenovska/www/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
