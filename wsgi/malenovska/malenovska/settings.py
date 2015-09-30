@@ -88,10 +88,13 @@ REDACTOR_UPLOAD = 'uploads/'
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static/static')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
 from django.contrib.messages import constants as msg_const
 MESSAGE_TAGS = { msg_const.ERROR: 'danger'}
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static/media')
+if ON_PAAS:
+    MEDIA_ROOT = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR'), 'media')
+else: 
+    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
