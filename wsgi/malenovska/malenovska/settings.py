@@ -93,5 +93,5 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 from django.contrib.messages import constants as msg_const
 MESSAGE_TAGS = { msg_const.ERROR: 'danger'}
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'malenovska/www/media')
