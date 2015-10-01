@@ -126,14 +126,14 @@ html {
   text-align: center;
 }
 .alert-success {
-  color: #fff;
-  background-color: #00aa00;
+  color: #00aa00;
+  background-color: #f0f0f0;
   border: 1px solid #00aa00;
   border-radius: 4px;
 }
 .alert-danger {
-  color: #fff;
-  background-color: #ff5500;
+  color: #ff5500;
+  background-color: #f0f0f0;
   border: 1px solid #ff5500;
   border-radius: 4px;
 }
@@ -333,32 +333,47 @@ span.glyphicon-user {
   border: medium none;
   border-radius: 2px;
   background: #fff;
-  font-weight: bold;
-  padding-left: 20px;
   color: #484D53;
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+  width: 450px;
 }
 .legend .row {
-  padding: 10px;
+  padding: 2px;
+  margin: 0px 0px 0px 0px;
+  color: #000;
+  cursor: pointer;
+}
+.legend div.row:hover {
+  background-color: #F7F7F7;
+  color: #29AC07;
+  border-radius: 2px;
 }
 .legend img {
   position: relative;
 }
 .legend .map-label {
-  position: absolute;
+  position:absolute;
   width: 22px;
-  top: 2px;
-  left: 21px;
+  top: 7px;
+  left: 22px;
   color: #fff;
   font-weight: bold;
 }
+.legend .col-xs-1 {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.legend .col-xs-11 {
+  padding-top: 8px;
+  padding-bottom: 2px;
+}
 .line .label {
-    padding: 0;
-    font-weight: normal;
-    line-height: 1.3em;
-    border-radius: 2px;
+  padding: 0;
+  font-weight: normal;
+  line-height: 1.3em;
+  border-radius: 2px;
 }
 .media-object {
-    height: 300px;
-    width: 500px;
+  height: 300px;
+  width: 500px;
 }

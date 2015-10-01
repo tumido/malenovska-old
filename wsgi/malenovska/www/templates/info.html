@@ -94,31 +94,37 @@
     map.addDefaultLayer(SMap.DEF_TRAIL).enable();
     map.addDefaultLayer(SMap.DEF_BIKE).enable();
 
-    SMap.Control.Points = JAK.ClassMaker.makeClass({
-                     NAME: "SMap.Control.Points",
+    SMap.Control.Legend = JAK.ClassMaker.makeClass({
+                     NAME: "SMap.Control.Legend",
                      VERSION: "1.0",
                      EXTEND: SMap.Control.Visible
                 });
-    SMap.Control.Points.prototype.$constructor = function() {
+    SMap.Control.Legend.prototype.$constructor = function() {
         this.$super();
-        this._dom.container = JAK.mel("div", {className: "trasy"});
-        this._dom.container.innerHTML =
-        "<div class='legend'><div class='row'>\
-        {% for item in map_points%}\
-        <div class='row'>\
-        <div class='col-xs-1'>\
-        <img src='"+SMap.CONFIG.img+"/marker/drop-red.png'></img>\
-        <span class='map-label'>{{item.0|safe}}</span>\
-        </div>\
-        <div class='col-xs-11'>\
-        {{item.1|safe}}\
-        </div>\
-        </div>{% endfor %}\
-        </div>";
+        this._dom.container = JAK.mel("div", {className: "legend_box"});
+        var content = "<div class='legend'>";
+        for (var i in data) {
+          content = content + "\
+          <div class='row' onclick='$(document).ready(function(){setCenter(\""+data[i][2]+"\");});'>\
+            <div class='col-xs-1'>\
+              <img src='"+SMap.CONFIG.img+"/marker/drop-red.png'></img>\
+              <span class='map-label'>"+data[i][0]+"</span>\
+            </div>\
+            <div class='col-xs-11'>\
+            "+data[i][1]+"\
+            </div>\
+          </div>";
+        }
+        content = content + "</div>";
+        this._dom.container.innerHTML = content;
     }
 
-    var c = new SMap.Control.Points();
-    map.addControl(c, {left:'20px', top:'20px'});
+    var c = new SMap.Control.Legend();
+    map.addControl(c, {left:'20px', top:'17px'});
+
+    var setCenter = function(coordinates) {
+      map.setCenter(SMap.Coords.fromWGS84(coordinates));
+    }
   </script>
 </div>
 {% endblock content %}

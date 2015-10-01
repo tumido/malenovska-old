@@ -55,6 +55,7 @@ class PlayerAdmin(admin.ModelAdmin):
         form = super(PlayerAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['date'].initial = timezone.now()
         form.base_fields['ip'].initial = '0.0.0.0'
+        form.base_fields['email'].initial = 'noexist@malenovska.cz'
         return form
 
 

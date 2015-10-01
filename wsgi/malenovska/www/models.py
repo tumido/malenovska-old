@@ -28,7 +28,7 @@ class Player(models.Model):
     date = models.DateTimeField('Datum registrace')
     ip = models.GenericIPAddressField('IP adresa')
     group = models.CharField('Skupina', max_length=200, null=True, blank=True)
-    email = models.CharField('E-mail', max_length=200, null=True, blank=True)
+    email = models.EmailField('E-mail', max_length=200)
 
     class Meta:
         verbose_name = 'Ragistrovaný hráč'

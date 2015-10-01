@@ -18,4 +18,4 @@ class RegisterForm(forms.ModelForm):
         self.fields['race'].queryset = Race.objects.filter(active=True).only('id', 'name')
         self.fields['group'].widget.attrs.update({'label': 'Skupina', 'placeholder': 'Rychlé Šípy', 'class':'form-control'})
         for field in self.fields.keys():
-            self.fields[field].widget.attrs.update({'required': self.fields[field].required, 'oninvalid': "this.setCustomValidity('Toto pole je třeba vyplnit')", 'title': '' })
+            self.fields[field].widget.attrs.update({'required': self.fields[field].required, 'title': '' })
