@@ -75,7 +75,7 @@ class AboutWidget(models.Model):
         verbose_name_plural = 'Panely a texty všude možně'
 
     def __str__(self):
-        return "{0} (identifier: '{1}')".format(self.name, self.identifier)
+        return self.name
 
 
 class DateOptions(models.Model):

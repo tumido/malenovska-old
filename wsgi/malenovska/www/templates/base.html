@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html {% block html_attribs %}{% endblock html_attribs %}>
   <head>
-    <title>{% block title %}Malenovská prašť{% endblock %}</title>
+    <title>{{page_name}}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,17 +21,28 @@
     <div id='wrap'>
     {% block navbar %}
       <div class="navbar navbar-inverse" role="navigation">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/"><img src="{% static 'img/malenovska_logo.svg' %}"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/legends">Legendy</a></li>
-            <li><a href="/rules">Pravidla</a></li>
-            <li><a href="/info">Důležité informace</a></li>
-            <li><a href="/world">Svět</a></li>
-            <li class="active"><a  href="/register">Registrace</a></li>
-          </ul>
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+              <img class='hidden-xs' src="{% static 'img/malenovska_logo.svg' %}">
+              <img class='visible-xs' src="{% static 'img/malenovska_logo_small.svg' %}">
+            </a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-menu">
+            <span class="sr-only">Zobrazit navigaci</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-collapse-menu">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/legends">Legendy</a></li>
+              <li><a href="/rules">Pravidla</a></li>
+              <li><a href="/info">Důležité informace</a></li>
+              <li><a href="/world">Svět</a></li>
+              <li class="active"><a  href="/register">Registrace</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     {% endblock navbar %}

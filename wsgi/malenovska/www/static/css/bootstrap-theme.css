@@ -6,6 +6,7 @@
 
 body {
   background-color: transparent;
+  overflow-x: hidden;
 }
 
 html {
@@ -71,6 +72,30 @@ html {
   font-family: 'Kalam', cursive;
   font-size: 20px;
 }
+.navbar-brand .hidden-xs {
+  padding-bottom: 80px;
+}
+.navbar-brand .visible-xs {
+  margin-top: -20px;
+}
+.collapse {
+  padding-bottom: -20px;
+}
+.navbar-inverse .navbar-toggle {
+  background-color: transparent;
+  border-color: #9f9f9f;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 5px;
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #d7d7d7;
+}
+.navbar-inverse .collapsing,
+.navbar-inverse .in {
+  background-color: #333;
+  border: 0px none;
+}
 .navbar-inverse {
   background: transparent;
   border: none;
@@ -80,7 +105,18 @@ html {
 .navbar-inverse ul {
   margin-top: 80px;
   padding-right: 40px;
+  text-align: center;
 }
+.in ul,
+.collapsing ul {
+  margin-top: 0;
+}
+.container-fluid {
+  padding-right: 0;
+  padding-left: 20px;
+}
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus,
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > .active > a,

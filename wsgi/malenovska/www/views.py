@@ -13,7 +13,12 @@ def enable_form():
     stop = timezone.localtime(DateOptions.objects.get(identifier='register_lock').date)
     return start < timezone.now() < stop
 
-class RegisterView(generic.CreateView):
+class MyView(generic.View):
+    def get_context_data(self, **kwargs):
+        context = super(MyView, self).get_context_data(**kwargs)
+        context['page_name'] = AboutWidget.objects.filter(identifier__equals='page_name').name
+
+class RegisterView(generic.CreateView, MyView):
     template_name = 'register.html'
     model = Player
     form_class = RegisterForm
@@ -59,7 +64,7 @@ class RegisterView(generic.CreateView):
         return context
 
 
-class LegendView(generic.ListView):
+class LegendView(generic.ListView, MyView):
     template_name = 'legends.html'
     context_object_name = 'legends_list'
 
@@ -67,7 +72,7 @@ class LegendView(generic.ListView):
         return Legend.objects.order_by('-id')
 
 
-class WorldView(generic.ListView):
+class WorldView(generic.ListView, MyView):
     template_name = 'world.html'
     context_object_name = 'races'
 
@@ -81,7 +86,7 @@ class WorldView(generic.ListView):
         return context
 
 
-class InfoView(generic.ListView):
+class InfoView(generic.ListView, MyView):
     template_name = 'info.html'
     context_object_name = 'dates'
 
@@ -101,7 +106,7 @@ class InfoView(generic.ListView):
         return context
 
 
-class RulesView(generic.ListView):
+class RulesView(generic.ListView, MyView):
     template_name = 'rules.html'
 
     def get_queryset(self):
@@ -114,7 +119,7 @@ class RulesView(generic.ListView):
         return context
 
 
-class NewsView(generic.ListView):
+class NewsView(generic.ListView, MyView):
     template_name = 'news.html'
     context_object_name = 'news_list'
 

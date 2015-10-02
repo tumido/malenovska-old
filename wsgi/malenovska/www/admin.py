@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils import timezone
 from django.http import HttpResponse
 from .models import Race, Player, Legend, News, AboutWidget, DateOptions, TextOptions, MapPoints
+from django.contrib.auth.admin import UserAdmin
 
 def export_xlsx(modeladmin, request, queryset):
     import openpyxl
@@ -64,6 +65,7 @@ class RaceAdmin(admin.ModelAdmin):
         (None,               {'fields': [('name', 'active', 'limit')]}),
         ('Popis', {'fields': ['icon', 'fraction', 'description'], 'classes': ['collapse']}),
     ]
+    list_display = ['name', 'active', 'limit']
 
 
 class LegendAdmin(admin.ModelAdmin):
@@ -74,14 +76,18 @@ class LegendAdmin(admin.ModelAdmin):
 
 class DateOptionsAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': [('name', 'identifier'), 'date']}),
+        (None,               {'fields': [('name', 'date')]}),
+        ('Skryto', {'fields': ['identifier'], 'classes': ['collapse']}),
     ]
+    list_display = ['name', 'date']
 
 
 class TextOptionsAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': [('name', 'identifier'), 'text']}),
+        (None,               {'fields': [('name', 'text')]}),
+        ('Skryto', {'fields': ['identifier'], 'classes': ['collapse']}),
     ]
+    list_display = ['name', 'text']
 
 
 class MapAdmin(admin.ModelAdmin):
@@ -90,11 +96,31 @@ class MapAdmin(admin.ModelAdmin):
     ]
 
 
+class AboutWidgetAdmin(admin.ModelAdmin):
+    list_display = ['name', 'identifier']
+    fieldsets = [
+        (None,               {'fields': ['name', 'text']}),
+        ('Skryto', {'fields': ['identifier'], 'classes': ['collapse']}),
+    ]
+
+
 admin.site.register(Race, RaceAdmin)
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Legend, LegendAdmin)
 admin.site.register(News)
-admin.site.register(AboutWidget)
+admin.site.register(AboutWidget, AboutWidgetAdmin)
 admin.site.register(MapPoints,MapAdmin)
 admin.site.register(DateOptions, DateOptionsAdmin)
 admin.site.register(TextOptions, TextOptionsAdmin)
+
+def roles(self):
+    #short_name = unicode # function to get group name
+    short_name = lambda x: x.name # first letter of a group
+    p = sorted([u"<a title='%s'>%s</a>" % (x, short_name(x)) for x in self.groups.all()])
+    if self.user_permissions.count(): p += ['+']
+    value = ', '.join(p)
+    return value
+roles.allow_tags = True
+roles.short_description = u'Groups'
+
+UserAdmin.list_display += (roles,)
