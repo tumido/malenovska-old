@@ -51,8 +51,8 @@ class RegisterView(generic.CreateView):
             context[text.identifier] = text.text
         context['registration_open'] = True
 
-        races = Race.objects.filter(active=True).order_by('-fraction', '-name')
-        context['players_list'] = [(r, Player.objects.filter(race=r.id).order_by('-surname')) for r in races]
+        races = Race.objects.filter(active=True).order_by('fraction', 'name')
+        context['players_list'] = [(r, Player.objects.filter(race=r.id).order_by('surname')) for r in races]
 
         context['after_register_open'] = timezone.localtime(DateOptions.objects.get(identifier='register_unlock').date) < timezone.now()
 
@@ -120,3 +120,9 @@ class NewsView(generic.ListView):
 
     def get_queryset(self):
         return News.objects.filter(date__lt=timezone.now()).order_by('-date')
+
+    def get_context_data(self, **kwargs):
+        context = super(NewsView, self).get_context_data(**kwargs)
+        text = AboutWidget.objects.get(identifier='page_name')
+        context[text.identifier] = text
+        return context

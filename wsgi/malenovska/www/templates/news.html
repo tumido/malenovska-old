@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-{% for news in news_list %}
 <div class='container bg'>
   <div class='row'>
-    <h1 class='page-header' id='legend-{{legend.id}}'>{{news.name}}</h1>
-    <span class='text-muted'>{{news.date}}</span>
-  </div>
-  <div class='row'>
-    {{news.text|safe}}
+    <h1 class='page-header'>{{ page_name.name }}</h1>
+    {{ page_name.text|safe}}
   </div>
 </div>
-{% endfor %}
+<div class='container bg'>
+  <div class='row'>
+    <h1 class='page-header'>Novinky</h1>
+  </div>
+  {% for news in news_list %}
+  <div class='row'>
+    <h2>{{news.name}}</h2>
+    <p><span class='text-muted'>{{news.date}}</span></p>
+    {{news.text|safe}}
+  </div>
+  {% endfor %}
+</div>
 {% endblock content %}

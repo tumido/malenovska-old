@@ -9,6 +9,7 @@
 <div class='container bg'>
   <div class='row'>
     <h1 class='page-header'>Rasy</h1>
+    {% comment 'until images are available' %}
     <ul class="media-list">
     {% for race in races %}
       <li class="media">
@@ -40,6 +41,19 @@
       </li>
     {% endfor %}
     </ul>
+    {% endcomment %}
+    <div class='row'>
+      {% for race in races %}
+      <div class="col-md-6">
+        <h2>{{race.name}}</h2>
+        {{race.description|safe}}
+      </div>
+      {% if forloop.counter|divisibleby:2 %}
+    </div>
+    <div class='row'>
+      {% endif %}
+      {% endfor %}
+    </div>
   </div>
 </div>
 
