@@ -72,7 +72,7 @@ class WorldView(generic.ListView):
     context_object_name = 'races'
 
     def get_queryset(self):
-        return Race.objects.filter(active=True).order_by('-fraction', '-name')
+        return Race.objects.filter(active=True).exclude(description='').order_by('fraction', 'name')
 
     def get_context_data(self, **kwargs):
         context = super(WorldView, self).get_context_data(**kwargs)
