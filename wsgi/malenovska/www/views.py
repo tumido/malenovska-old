@@ -13,12 +13,8 @@ def enable_form():
     stop = timezone.localtime(DateOptions.objects.get(identifier='register_lock').date)
     return start < timezone.now() < stop
 
-class MyView(generic.View):
-    def get_context_data(self, **kwargs):
-        context = super(MyView, self).get_context_data(**kwargs)
-        context['page_name'] = AboutWidget.objects.get(identifier='page_name').name
 
-class RegisterView(generic.CreateView, MyView):
+class RegisterView(generic.CreateView):
     template_name = 'register.html'
     model = Player
     form_class = RegisterForm
@@ -60,19 +56,25 @@ class RegisterView(generic.CreateView, MyView):
         context['players_list'] = [(r, Player.objects.filter(race=r.id).order_by('surname')) for r in races]
 
         context['after_register_open'] = timezone.localtime(DateOptions.objects.get(identifier='register_unlock').date) < timezone.now()
+        context['page_name'] = AboutWidget.objects.get(identifier='page_name').name
 
         return context
 
 
-class LegendView(generic.ListView, MyView):
+class LegendView(generic.ListView):
     template_name = 'legends.html'
     context_object_name = 'legends_list'
 
     def get_queryset(self):
         return Legend.objects.order_by('-id')
 
+    def get_context_data(self, **kwargs):
+        context = super(LegendView, self).get_context_data(**kwargs)
+        context['page_name'] = AboutWidget.objects.get(identifier='page_name').name
+        return context
 
-class WorldView(generic.ListView, MyView):
+
+class WorldView(generic.ListView):
     template_name = 'world.html'
     context_object_name = 'races'
 
@@ -83,10 +85,11 @@ class WorldView(generic.ListView, MyView):
         context = super(WorldView, self).get_context_data(**kwargs)
         text = AboutWidget.objects.get(identifier='world_characteristics')
         context[text.identifier] = text.text
+        context['page_name'] = AboutWidget.objects.get(identifier='page_name').name
         return context
 
 
-class InfoView(generic.ListView, MyView):
+class InfoView(generic.ListView):
     template_name = 'info.html'
     context_object_name = 'dates'
 
@@ -103,10 +106,11 @@ class InfoView(generic.ListView, MyView):
             ch = ascii_uppercase[i]
             context['map_points'].append([ch, point.title,
                                                "{0},{1}".format(point.long, point.lat)])
+        context['page_name'] = AboutWidget.objects.get(identifier='page_name').name
         return context
 
 
-class RulesView(generic.ListView, MyView):
+class RulesView(generic.ListView):
     template_name = 'rules.html'
 
     def get_queryset(self):
@@ -116,10 +120,11 @@ class RulesView(generic.ListView, MyView):
         context = super(RulesView, self).get_context_data(**kwargs)
         text = AboutWidget.objects.get(identifier='rules')
         context[text.identifier] = text.text
+        context['page_name'] = AboutWidget.objects.get(identifier='page_name').name
         return context
 
 
-class NewsView(generic.ListView, MyView):
+class NewsView(generic.ListView):
     template_name = 'news.html'
     context_object_name = 'news_list'
 
