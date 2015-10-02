@@ -16,7 +16,7 @@ def enable_form():
 class MyView(generic.View):
     def get_context_data(self, **kwargs):
         context = super(MyView, self).get_context_data(**kwargs)
-        context['page_name'] = AboutWidget.objects.filter(identifier__equals='page_name').name
+        context['page_name'] = AboutWidget.objects.get(identifier='page_name').name
 
 class RegisterView(generic.CreateView, MyView):
     template_name = 'register.html'
