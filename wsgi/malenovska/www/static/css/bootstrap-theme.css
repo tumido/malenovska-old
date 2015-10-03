@@ -74,6 +74,7 @@ html {
 }
 .navbar-brand .hidden-xs {
   padding-bottom: 80px;
+  margin-left: 20px;
 }
 .navbar-brand .visible-xs {
   margin-top: -20px;
@@ -93,27 +94,40 @@ html {
 }
 .navbar-inverse .collapsing,
 .navbar-inverse .in {
-  background-color: #333;
-  border: 0px none;
+  background-color: rgba(51,51,51,0.5);
+  border: 0px transparent;
 }
 .navbar-inverse {
   background: transparent;
   border: none;
   color: #d7d7d7;
   padding: 10px;
+  margin-bottom: 60px;
 }
 .navbar-inverse ul {
   margin-top: 80px;
-  padding-right: 40px;
+  padding-right: 25px;
   text-align: center;
 }
+.navbar-nav {
+  margin:0;
+}
 .in ul,
-.collapsing ul {
+.collapsing ul,
+.in .nav,
+.collapsing .nav {
   margin-top: 0;
+  margin-right: 0;
+  padding-right: 0;
 }
 .container-fluid {
   padding-right: 0;
-  padding-left: 20px;
+  padding-left: 0;
+}
+.container-fluid > .navbar-header,
+.container-fluid > .navbar-collapse {
+  margin-right:0;
+  margin-left:0;
 }
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus,
@@ -203,8 +217,7 @@ html {
   background-color: #F2F2F2;
 }
 .bg {
-  margin-top: 60px;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   padding: 0px 60px 30px 60px;
   background-color: #f0f0f0;
   border-radius: 2px;
@@ -262,8 +275,6 @@ body {
 /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
 #footer {
-  margin-left: -20px;
-  margin-right: -20px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -288,37 +299,29 @@ body {
   text-align: right;
 }
 .panel-horizontal {
+  display:table;
+  width:100%;
   border: 0px none;
-  margin: 10px;
-  margin-bottom: 20px;
-  width: 100%;
+  margin: 10px 0px 0px 0px;
+  box-shadow: none;
 }
-.panel-horizontal .panel-heading {
-  float: right;
-  height: 100%;
+.panel-horizontal > .panel-heading,
+.panel-horizontal > .panel-body {
+  display:table-cell;
   padding: 10px;
+}
+.panel-horizontal > .panel-heading {
+  border: 1px solid #ccc;
+  border-radius: 4px 0px 0px 4px;
+  background-color: #f0f0f0;
+  vertical-align: middle;
   width: 40%;
-  min-width: 150px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  margin-bottom: 0;
-  background: #f0f0f0;
 }
-.panel-horizontal .panel-body {
-  float: right;
-  padding: 10px;
-  width: 60%;
-  min-width: 200px;
-  height: 100%;
-  margin-bottom: 0;
-  background-color: #fff;
+.panel-horizontal > .panel-body {
   border: 1px solid #ccc;
-  border-left: 0px none;
-  border-radius: 4px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  border-radius: 0px 4px 4px 0px;
+  border-width: 1px 1px 1px 0px;
+  background-color: #fff;
 }
 .center {
   text-align: center;
@@ -416,4 +419,27 @@ span.glyphicon-user {
 .media-object {
   height: 300px;
   width: 500px;
+}
+@media (max-width: 767px) {
+  .navbar-inverse {
+    margin-bottom: 0;
+    padding-left:0;
+    padding-right:0;
+  }
+  #map {
+    margin-left: -20px;
+    margin-right: -20px;
+    width: calc(100% + 40px);
+  }
+  .nav-tabs > li {
+    float:left;
+    width: 100%;
+    border-radius: 0;
+  }
+  .nav-tabs > li.active >a{
+    border-radius: 0;
+  }
+  .tab-pane .row {
+    margin-bottom: -10px;
+  }
 }
