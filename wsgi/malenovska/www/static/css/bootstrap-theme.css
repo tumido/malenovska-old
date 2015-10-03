@@ -267,12 +267,9 @@ body {
   /* Negative indent footer by it's height */
   margin: 0 auto -60px;
 }
-/* Set the fixed height of the footer here */
-#push,
-#footer {
+#push {
   height: 60px;
 }
-/* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
 #footer {
   padding-left: 20px;
@@ -285,10 +282,6 @@ body {
 .tab-content {
   padding: 10px;
   background-color: #fff;
-}
-.clear {
-  clear:both;
-  line-height:0;
 }
 .input-group-addon {
   width:20%;
@@ -442,4 +435,46 @@ span.glyphicon-user {
   .tab-pane .row {
     margin-bottom: -10px;
   }
+  .tab-pane {
+    margin-bottom: 20px;
+  }
+  #footer {
+    background: rgba(0,0,0,0.8);
+    padding-top: 20px;
+  }
+  .dl-horizontal dt {
+    float:left;
+    clear: both;
+    display: block;
+    margin-top: 25px !important;
+  }
+  .dl-horizontal dd {
+    float:right;
+    margin-left: 0px !important;
+    width: calc(100% - 50px) !important;
+    display: block;
+    margin-top: 20px;
+  }
+}
+.dl-horizontal dt {
+  padding-bottom: 10px;
+  color: #d7d7d7;
+  width: 20px;
+  margin-top: 5px;
+}
+.dl-horizontal dd > a:hover,
+.dl-horizontal dd > a:active,
+.dl-horizontal dd > a:focus {
+  color: #d7d7d7;
+  text-decoration: none;
+}
+.dl-horizontal dd {
+  color:#777;
+  margin-left: 40px;
+}
+.dl-horizontal dd > a {
+  color: rgba(215, 215, 215, 0.75);
+}
+.dl-horizontal .glyphicon {
+  font-size: 18px;
 }

@@ -61,33 +61,32 @@ $(document).ready(function() {
       {% endfor %}
     </ul>
     <div class="tab-content">
-      {% for race, players in players_list %}
-      <div role="tabpanel" class="tab-pane fade" id="race{{race.id}}">
-        <div class='row'>
-        {% for player in players %}
-        <div class='col-md-4'>
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class='col-xs-3'>
-                <span class="glyphicon glyphicon-user"></span>
-              </div>
-              <div class='col-xs-9'>
-              <p><b>{% if player.nick %}{{player.nick}}{% else %}{{player.name}}{%endif%}</b></br>
-              {{player.name}} {{player.surname}}</br>
-              <i>{% if player.group %}{{player.group}}{% else %}</br>{%endif%}</i></p>
+        {% for race, players in players_list %}
+        <div role="tabpanel" class="tab-pane fade clearfix" id="race{{race.id}}">
+          <div class='row'>
+          {% for player in players %}
+          <div class='col-md-4'>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class='col-xs-3'>
+                  <span class="glyphicon glyphicon-user"></span>
+                </div>
+                <div class='col-xs-9'>
+                <p><b>{% if player.nick %}{{player.nick}}{% else %}{{player.name}}{%endif%}</b></br>
+                {{player.name}} {{player.surname}}</br>
+                <i>{% if player.group %}{{player.group}}{% else %}</br>{%endif%}</i></p>
+                </div>
               </div>
             </div>
           </div>
+          {% if forloop.counter|divisibleby:3 %}
+          </div>
+          <div class='row'>
+          {% endif %}
+          {% endfor %}
+          </div>
         </div>
-        {% if forloop.counter|divisibleby:3 %}
-        </div>
-        <div class='row'>
-        {% endif %}
         {% endfor %}
-        </div>
-      </div>
-      {% endfor %}
-      <br class="clear"/>
     </div>
   </div>
 </div>
