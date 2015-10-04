@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% block imports %}
+{% load staticfiles %}
 {{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/contact-buttons.css' %}" />
 <script type="text/javascript" src="//api.mapy.cz/loader.js"></script>
 <script type="text/javascript">Loader.load(null, {poi:true});</script>
 {% endblock imports %}
 {% block content %}
+{% load www_extras %}
 <div class='container bg'>
   <div class='row'>
     <h1 class='page-header'>Důležité informace</h1>
@@ -36,6 +40,33 @@
           </div>
         </div>
         {% endfor %}
+        <div class='row'>
+          <div class="panel panel-horizontal panel-default">
+            <div class="panel-heading">
+              Kontakty
+            </div>
+            <div class="panel-body">
+              {% for type, contact in contacts.items %}
+              <a href='{{contact.text}}' class="btn btn-sm btn-contact btn-{{type}}">
+                <span class="fa fa-{{type}}"></span>
+                {% if type == 'at'%}<script type="text/javascript">
+                  var email = "";
+                  {{contact.email|safe}}
+                  $("a[href='mailto:']").attr('href', email);
+                </script>{% endif %}
+              </a>
+              <div class='contact-text'>
+                <span class='hidden-xs'>
+                  {{contact.name|capfirst}}
+                </span>
+                <span class='visible-xs'>
+                  {{contact.name|split:" ,0"|capfirst}}
+                </span>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
       </div>
   </div>
 </div>

@@ -107,6 +107,18 @@ class InfoView(generic.ListView):
             context['map_points'].append([ch, point.title,
                                                "{0},{1}".format(point.long, point.lat)])
         context['page_name'] = AboutWidget.objects.get(identifier='page_name').name
+        contacts = TextOptions.objects.filter(identifier__contains='contact')
+        context['contacts'] = { o.identifier.split('_')[-1]: {'name': o.name,
+                                                              'text': o.text}
+                               for o in contacts}
+        if 'at' in context['contacts']:
+            email = context['contacts']['at']['text']
+            email = 'mailto:' + email
+            encrypt = ''
+            for i in email:
+                encrypt += chr(ord(i) + 3)
+            context['contacts']['at']['text'] = "mailto:"
+            context['contacts']['at']['email'] = "var email =\"" + encrypt +"\".replace(/./g, function(c){return String.fromCharCode(c=c.charCodeAt(0)-3);});"
         return context
 
 
