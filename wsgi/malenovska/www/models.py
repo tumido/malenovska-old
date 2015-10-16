@@ -114,3 +114,15 @@ class MapPoints(models.Model):
 
     def __str__(self):
         return self.title
+
+class Harmonogram(models.Model):
+    program = models.CharField('Program', max_length=200)
+    time_start = models.TimeField('Čas začátku')
+    time_end = models.TimeField('Čas konce', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Program'
+        verbose_name_plural = 'Harmonogram'
+
+    def __str__(self):
+        return self.program

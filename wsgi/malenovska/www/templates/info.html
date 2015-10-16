@@ -69,7 +69,17 @@
         </div>
       </div>
   </div>
+{% if harmonogram %}
+  <div class='row'>
+    <h2>Harmonogram</h2>
+    <dl class="dl-horizontal">
+    {% for program in harmonogram %}
+      <dt>{{program.time_start}}{% if program.time_end %} - {{program.time_end}}{% else %}{% endif %}</dt>
+      <dd>{{program.program}}</dd>
+    {% endfor %}
+  </div>
 </div>
+{% endif %}
 <div class='container bg'>
   <div class='row'>
     <h1 class='page-header'>Mapa</h1>

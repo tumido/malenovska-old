@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils import timezone
 from django.http import HttpResponse
-from .models import Race, Player, Legend, News, AboutWidget, DateOptions, TextOptions, MapPoints
+from .models import Race, Player, Legend, News, AboutWidget, DateOptions, TextOptions, MapPoints, Harmonogram
 from django.contrib.auth.admin import UserAdmin
 
 def export_xlsx(modeladmin, request, queryset):
@@ -103,6 +103,11 @@ class AboutWidgetAdmin(admin.ModelAdmin):
         ('Skryto', {'fields': ['identifier'], 'classes': ['collapse']}),
     ]
 
+class HarmonogramAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': [('program', 'time_start', 'time_end')]}),
+    ]
+    list_display = ['time_start', 'time_end', 'program']
 
 admin.site.register(Race, RaceAdmin)
 admin.site.register(Player, PlayerAdmin)
@@ -110,6 +115,7 @@ admin.site.register(Legend, LegendAdmin)
 admin.site.register(News)
 admin.site.register(AboutWidget, AboutWidgetAdmin)
 admin.site.register(MapPoints,MapAdmin)
+admin.site.register(Harmonogram,HarmonogramAdmin)
 admin.site.register(DateOptions, DateOptionsAdmin)
 admin.site.register(TextOptions, TextOptionsAdmin)
 
