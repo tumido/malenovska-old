@@ -19,7 +19,8 @@ def export_xlsx(modeladmin, request, queryset):
         (u"Rasa", 20),
         (u"Přezdívka", 20),
         (u"Jméno", 20),
-        (u"Příjmení", 20)
+        (u"Příjmení", 20),
+        (u"Věk", 20)
     ]
 
     for col_num in range(len(columns)):
@@ -29,12 +30,13 @@ def export_xlsx(modeladmin, request, queryset):
         # set column width
         ws.column_dimensions[get_column_letter(col_num+1)].width = columns[col_num][1]
 
-    for obj in queryset.order_by('-race'):
+    for obj in queryset.order_by('race', 'nick', 'surname'):
         row_num += 1
         row = [obj.race.name,
                obj.nick,
                obj.name,
-               obj.surname]
+               obj.surname,
+               obj.age]
         for col_num in range(len(row)):
             c = ws.cell(row=row_num + 1, column=col_num + 1)
             c.value = row[col_num]
@@ -45,12 +47,15 @@ def export_xlsx(modeladmin, request, queryset):
 
 export_xlsx.short_description = u"Exportovat jako XLSX (Excel)"
 
+@admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
     actions = [export_xlsx]
     fieldsets = [
         (None,               {'fields': [('nick', 'name', 'surname'), ('race', 'age')]}),
         ('Detaily', {'fields': ['email', 'date', 'ip'], 'classes': ['collapse']}),
     ]
+    list_display = ['race', 'nick', 'name', 'surname', 'age']
+    ordering = ('race', 'nick', 'surname')
 
     def get_form(self, request, obj=None, **kwargs):
         form = super(PlayerAdmin, self).get_form(request, obj, **kwargs)
@@ -60,6 +65,7 @@ class PlayerAdmin(admin.ModelAdmin):
         return form
 
 
+@admin.register(Race)
 class RaceAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('name', 'active', 'limit')]}),
@@ -68,12 +74,14 @@ class RaceAdmin(admin.ModelAdmin):
     list_display = ['name', 'active', 'limit']
 
 
+@admin.register(Legend)
 class LegendAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('name', 'race'), 'text']}),
     ]
 
 
+@admin.register(DateOptions)
 class DateOptionsAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('name', 'date')]}),
@@ -82,6 +90,7 @@ class DateOptionsAdmin(admin.ModelAdmin):
     list_display = ['name', 'date']
 
 
+@admin.register(TextOptions)
 class TextOptionsAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('name', 'text')]}),
@@ -90,12 +99,14 @@ class TextOptionsAdmin(admin.ModelAdmin):
     list_display = ['name', 'text']
 
 
+@admin.register(MapPoints)
 class MapAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('title', 'lat', 'long')]}),
     ]
 
 
+@admin.register(AboutWidget)
 class AboutWidgetAdmin(admin.ModelAdmin):
     list_display = ['name', 'identifier']
     fieldsets = [
@@ -103,21 +114,15 @@ class AboutWidgetAdmin(admin.ModelAdmin):
         ('Skryto', {'fields': ['identifier'], 'classes': ['collapse']}),
     ]
 
+
+@admin.register(Harmonogram)
 class HarmonogramAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': [('program', 'time_start', 'time_end')]}),
     ]
     list_display = ['time_start', 'time_end', 'program']
 
-admin.site.register(Race, RaceAdmin)
-admin.site.register(Player, PlayerAdmin)
-admin.site.register(Legend, LegendAdmin)
 admin.site.register(News)
-admin.site.register(AboutWidget, AboutWidgetAdmin)
-admin.site.register(MapPoints,MapAdmin)
-admin.site.register(Harmonogram,HarmonogramAdmin)
-admin.site.register(DateOptions, DateOptionsAdmin)
-admin.site.register(TextOptions, TextOptionsAdmin)
 
 def roles(self):
     #short_name = unicode # function to get group name
