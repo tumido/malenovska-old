@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils import timezone
 from django.http import HttpResponse
-from .models import Race, Player, Legend, News, AboutWidget, DateOptions, TextOptions, MapPoints, Harmonogram
+from .models import Race, Player, Legend, News, AboutWidget, DateOptions, TextOptions, MapPoints, Harmonogram, ExtraFiles
 from django.contrib.auth.admin import UserAdmin
 
 def export_xlsx(modeladmin, request, queryset):
@@ -80,6 +80,11 @@ class LegendAdmin(admin.ModelAdmin):
         (None,               {'fields': [('name', 'race'), 'text']}),
     ]
 
+@admin.register(ExtraFiles)
+class FilesAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': [('name', 'tooltip', 'filefield')]}),
+    ]
 
 @admin.register(DateOptions)
 class DateOptionsAdmin(admin.ModelAdmin):

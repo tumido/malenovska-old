@@ -40,6 +40,18 @@
           </div>
         </div>
         {% endfor %}
+        {% for f in files%}
+        <div class='row'>
+          <div class="panel panel-horizontal panel-default">
+            <div class="panel-heading">
+              {{ f.name }}
+            </div>
+            <div class="panel-body">
+              <a href="{{ f.filefield.url }}">{{f.tooltip}}</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
         <div class='row'>
           <div class="panel panel-horizontal panel-default">
             <div class="panel-heading">

@@ -126,3 +126,15 @@ class Harmonogram(models.Model):
 
     def __str__(self):
         return self.program
+
+class ExtraFiles(models.Model):
+    name = models.CharField('Titulek', max_length=200)
+    tooltip = models.CharField('Popisek', max_length=200)
+    filefield = models.FileField('Soubor')
+
+    class Meta:
+        verbose_name = 'Soubor'
+        verbose_name_plural = 'Nahrané soubory'
+
+    def __str__(self):
+        return self.name

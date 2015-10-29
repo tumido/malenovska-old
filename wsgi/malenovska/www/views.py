@@ -5,7 +5,7 @@ from django.views import generic
 from django.contrib import messages
 from string import ascii_uppercase
 
-from .models import News, Race, Player, Legend, AboutWidget, DateOptions, TextOptions, MapPoints, Harmonogram
+from .models import News, Race, Player, Legend, AboutWidget, DateOptions, TextOptions, MapPoints, Harmonogram, ExtraFiles
 from .forms import RegisterForm
 
 def enable_form():
@@ -131,6 +131,8 @@ class InfoView(generic.ListView):
             context['contacts']['at']['email'] = "var email =\"" + encrypt +"\".replace(/./g, function(c){return String.fromCharCode(c=c.charCodeAt(0)-3);});"
         # last but not least - harmonogram
         context['harmonogram'] = Harmonogram.objects.all().order_by('time_start')
+        # add acknowledgement for youngsters
+        context['files'] = ExtraFiles.objects.all().order_by('name')
         return context
 
 
