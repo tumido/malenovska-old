@@ -18,10 +18,10 @@ setup(
     # GETTING-STARTED: define required django version:
     install_requires=[
         'Django==1.8.4',
+        'psycopg2',
         'django-wysiwyg-redactor<=0.4.9',
         'openpyxl<=2.2.6',
-        'Pillow<=2.8.2'],
-
+        'Pillow<=2.8.2'
     ],
     dependency_links=[
         'https://pypi.python.org/simple/django/'

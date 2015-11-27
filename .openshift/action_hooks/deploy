@@ -17,4 +17,4 @@ python "$OPENSHIFT_REPO_DIR"wsgi/malenovska/manage.py migrate --noinput
 # GETTING-STARTED: change 'malenovska' to your project name:
 echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/malenovska/manage.py collectstatic --noinput'"
 # GETTING-STARTED: change 'malenovska' to your project name:
-python "$OPENSHIFT_REPO_DIR"wsgi/my/manage.py collectstatic --noinput
+python "$OPENSHIFT_REPO_DIR"wsgi/malenovska/manage.py collectstatic --noinput

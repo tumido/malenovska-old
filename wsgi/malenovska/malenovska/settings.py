@@ -28,14 +28,14 @@ SECRETS = secrets.getter(os.path.join(DATA_DIR, 'secrets.json'))
 SECRET_KEY = SECRETS['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG') == 'True'
+DEBUG = 'OPENSHIFT_REPO_DIR' not in os.environ.keys() or \
+        os.environ.get('DEBUG') == 'True'
 
 from socket import gethostname
 ALLOWED_HOSTS = [
     gethostname(), # For internal OpenShift load balancer security purposes.
     os.environ.get('OPENSHIFT_APP_DNS'), # Dynamically map to the OpenShift gear name.
-    #'example.com', # First DNS alias (set up in the app)
-    #'www.example.com', # Second DNS alias (set up in the app)
+    '.malenovska.cz', # First DNS alias (set up in the app)
 ]
 
 ADMINS = ('Tumi', 'coufal.tom@gmail.com')
@@ -88,13 +88,25 @@ WSGI_APPLICATION = 'malenovska.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # GETTING-STARTED: change 'db.sqlite3' to your sqlite3 database:
-        'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
+if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['OPENSHIFT_APP_NAME'],
+            'USER': os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME'],
+            'PASSWORD': os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD'],
+            'HOST': os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
+            'PORT': os.environ['OPENSHIFT_POSTGRESQL_DB_PORT']
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite3',
+        }
+    }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
