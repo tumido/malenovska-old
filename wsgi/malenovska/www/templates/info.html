@@ -41,6 +41,7 @@
         </div>
         {% endfor %}
         {% for f in files%}
+        {% if f.filefield %}
         <div class='row'>
           <div class="panel panel-horizontal panel-default file">
             <div class="panel-heading">
@@ -51,6 +52,7 @@
             </div>
           </div>
         </div>
+        {% endif %}
         {% endfor %}
         <div class='row'>
           <div class="panel panel-horizontal panel-default">
