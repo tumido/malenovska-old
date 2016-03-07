@@ -15,6 +15,7 @@ BASE_DIR = os.path.dirname(DJ_PROJECT_DIR)
 WSGI_DIR = os.path.dirname(BASE_DIR)
 REPO_DIR = os.path.dirname(WSGI_DIR)
 DATA_DIR = os.environ.get('OPENSHIFT_DATA_DIR', BASE_DIR)
+LOG_DIR = os.environ.get('OPENSHIFT_LOG_DIR', BASE_DIR)
 
 import sys
 sys.path.append(os.path.join(REPO_DIR, 'libs'))
@@ -132,3 +133,23 @@ STATIC_ROOT = os.path.join(WSGI_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
+
+# Add additional logging for troubleshooting the 500 errors
+LOGGING = {
+  'version': 1,
+  'disable_existing_loggers': False,
+  'handlers': {
+    'file': {
+      'level': 'WARNING',
+      'class': 'logging.FileHandler',
+      'filename': os.path.join(LOG_DIR, 'django.log'),
+    },
+  },
+  'loggers': {
+    'django.request': {
+      'handlers': ['file'],
+      'level': 'WARNING',
+      'propagate': True,
+    },
+  },
+}
