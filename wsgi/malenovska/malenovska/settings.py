@@ -7,9 +7,11 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
+from socket import gethostname
+
+# Paths for used by Django
 DJ_PROJECT_DIR = os.path.dirname(__file__)
 BASE_DIR = os.path.dirname(DJ_PROJECT_DIR)
 WSGI_DIR = os.path.dirname(BASE_DIR)
@@ -17,26 +19,22 @@ REPO_DIR = os.path.dirname(WSGI_DIR)
 DATA_DIR = os.environ.get('OPENSHIFT_DATA_DIR', BASE_DIR)
 LOG_DIR = os.environ.get('OPENSHIFT_LOG_DIR', BASE_DIR)
 
-import sys
+# Load local dependencies
 sys.path.append(os.path.join(REPO_DIR, 'libs'))
-import secrets
+import secrets  # noqa
+
+# Load secrets
 SECRETS = secrets.getter(os.path.join(DATA_DIR, 'secrets.json'))
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRETS['secret_key']
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# Setup debug mode
 DEBUG = 'OPENSHIFT_REPO_DIR' not in os.environ.keys() or \
         os.environ.get('DEBUG') == 'True'
 
-from socket import gethostname
 ALLOWED_HOSTS = [
-    gethostname(), # For internal OpenShift load balancer security purposes.
-    os.environ.get('OPENSHIFT_APP_DNS'), # Dynamically map to the OpenShift gear name.
-    '.malenovska.cz', # First DNS alias (set up in the app)
+    gethostname(),  # For internal OpenShift load balancer security purposes
+    os.environ.get('OPENSHIFT_APP_DNS'),  # Map to the OpenShift gear name
+    '.malenovska.cz',  # First DNS alias (set up in the app)
 ]
 
 ADMINS = ('Tumi', 'coufal.tom@gmail.com')
@@ -64,7 +62,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-# GETTING-STARTED: change 'malenovska' to your project name:
 ROOT_URLCONF = 'malenovska.urls'
 
 TEMPLATES = [
@@ -87,8 +84,6 @@ WSGI_APPLICATION = 'malenovska.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
 if 'OPENSHIFT_REPO_DIR' in os.environ.keys():
     DATABASES = {
         'default': {
@@ -108,10 +103,6 @@ else:
         }
     }
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
-
 LANGUAGE_CODE = 'cs-cz'
 
 TIME_ZONE = 'Europe/Prague'
@@ -125,8 +116,7 @@ USE_TZ = True
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
+# Static files
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(WSGI_DIR, 'static')
@@ -136,20 +126,20 @@ MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 
 # Add additional logging for troubleshooting the 500 errors
 LOGGING = {
-  'version': 1,
-  'disable_existing_loggers': False,
-  'handlers': {
-    'file': {
-      'level': 'WARNING',
-      'class': 'logging.FileHandler',
-      'filename': os.path.join(LOG_DIR, 'django.log'),
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOG_DIR, 'django.log'),
+        },
     },
-  },
-  'loggers': {
-    'django.request': {
-      'handlers': ['file'],
-      'level': 'WARNING',
-      'propagate': True,
+    'loggers': {
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
     },
-  },
 }
