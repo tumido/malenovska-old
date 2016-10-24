@@ -2,8 +2,8 @@
 from django.views import generic
 from string import ascii_uppercase
 
-from .models import (DateOptions, AboutWidget, TextOptions,
-                     Harmonogram, MapPoints, ExtraFiles)
+from .models import TextOptions, Harmonogram, MapPoints, ExtraFiles
+from general.models import DateOptions, AboutWidget
 
 
 class InfoView(generic.ListView):

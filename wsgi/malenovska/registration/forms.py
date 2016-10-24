@@ -1,7 +1,8 @@
 """Register a Player for Malenovska."""
 from django import forms
+
 from .models import Player
-from races.models import Race
+from world.models import Race
 
 
 class RegisterForm(forms.ModelForm):

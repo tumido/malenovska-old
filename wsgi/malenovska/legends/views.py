@@ -1,6 +1,7 @@
 from django.views import generic
 
 from .models import Legend
+from general.models import AboutWidget
 
 
 class LegendView(generic.ListView):
