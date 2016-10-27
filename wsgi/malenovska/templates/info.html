@@ -9,9 +9,10 @@
 {% endblock imports %}
 {% block content %}
 {% load www_extras %}
-<div class='container bg'>
+<div class='container'>
+  <h1 class='page-header'>Důležité informace</h1>
+  <h2 class='entry-header'>Organizační nesmysly</h2>
   <div class='row'>
-    <h1 class='page-header'>Důležité informace</h1>
       <div class='col-md-7'>
         {{ info_general|safe }}
       </div>
@@ -83,7 +84,7 @@
         </div>
       </div>
   </div>
-{% if harmonogram %}
+  {% if harmonogram %}
   <div class='row'>
     <h2>Harmonogram</h2>
     <dl class="dl-horizontal">
@@ -92,13 +93,10 @@
       <dd>{{program.program}}</dd>
     {% endfor %}
   </div>
-</div>
-{% endif %}
-<div class='container bg'>
+  {% endif %}
+  <h1 class='entry-header'>Mapa</h1>
   <div class='row'>
-    <h1 class='page-header'>Mapa</h1>
     {{ info_map|safe }}
-  </div>
   <div id="map"></div>
   <script>
     var map = new SMap(JAK.gel("map"));
@@ -189,5 +187,6 @@
       map.setCenterZoom(SMap.Coords.fromWGS84(coordinates), cz[1]-1, true);
     }
   </script>
+</div>
 </div>
 {% endblock content %}

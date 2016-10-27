@@ -1,19 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-<div class='container bg'>
+<div class='container'>
+  <h1 class='page-header'>{{ page_name.name|default:"Malenovská" }}</h1>
   <div class='row'>
-    <h1 class='page-header'>{{ page_name.name }}</h1>
-    {{ page_name.text|safe}}
+    {{ page_name.text|safe|default:"Vítej internetový poutníče"}}
   </div>
 </div>
-<div class='container bg'>
-  <div class='row'>
-    <h1 class='page-header'>Novinky</h1>
-  </div>
+<div class='container'>
+  <h1 class='page-header'>Události dávné i nedávné</h1>
   {% for news in news_list %}
+  <h2 class='entry-header'>{{news.name}}<span class='pull-right text-muted'>{{news.date}}</span></h2>
   <div class='row'>
-    <h2>{{news.name}}</h2>
-    <p><span class='text-muted'>{{news.date}}</span></p>
     {{news.text|safe}}
   </div>
   {% endfor %}

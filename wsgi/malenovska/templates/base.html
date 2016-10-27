@@ -18,6 +18,7 @@
     {% endblock imports %}
   </head>
   <body {% block body_attribs %}{% endblock body_attribs %}>
+    <div id="background"></div>
     <div id='wrap'>
     {% block navbar %}
       <div class="navbar navbar-inverse" role="navigation">
@@ -57,7 +58,7 @@
     {% endblock content %}
     </div>
     <div id='push'></div>
-    <footer id="footer">
+    <footer>
       <div class="container">
         <dl class="dl-horizontal">
           <dt><span class='glyphicon glyphicon-send'></span></dt>

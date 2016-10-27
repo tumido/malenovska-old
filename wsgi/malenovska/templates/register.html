@@ -12,9 +12,10 @@ $(document).ready(function() {
 </script>
 {% endblock imports %}
 {% block content %}
-<div class='container bg'>
+<div class='container'>
+  <h1 class="page-header" id='new-player'>Přihlas se</h1>
+  <h2 class="entry-header" id='new-player'>Na smrt jdoucí hrdinové</h2>
   <div class='row'>
-    <h1 class="page-header" id='new-player'>Přihlas se</h1>
     <div class='col-md-7'>
     {{register_beside_form|safe}}
     </div>
@@ -45,15 +46,14 @@ $(document).ready(function() {
     </div>
     {% endif %}
   </div>
+  <h2 class="entry-header" id='new-player'>Pozorovatelé, fanoušci, a další havěť</h2>
   <div class='row'>
   {{register_down|safe}}
   </div>
 </div>
-{% if after_register_open %}
-<div class='container bg'>
-  <div class='row'>
-    <h1 class='page-header' id='signed-up'>Přihlášení hráči</h1>
-  </div>
+{% if after_register_open and players_list %}
+<div class='container'>
+  <h1 class='page-header' id='signed-up'>Přihlášení hráči</h1>
   <div class='row' id='tabs'>
     <ul class="nav nav-tabs" role="tablist">
       {% for race, players in players_list %}

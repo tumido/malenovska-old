@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 {% for legend in legends_list %}
-<div class='container bg'>
+<div class='container'>
+  <h1 class='page-header' id='legend-{{legend.id}}'>{{legend.name}}</h1>
   <div class='row'>
-    <h1 class='page-header' id='legend-{{legend.id}}'>{{legend.name}}</h1>
     {{legend.text|safe}}
+  </div>
+</div>
+{% empty %}
+<div class='container'>
+  <h1 class='page-header'>Legendy Mezihoří</h1>
+  <div class='row'>
+    Kronikář byl unesen! A s ním i jeho zkazky! Zachaň se, kdo můžeš... Z legend zbyl jen prach.
   </div>
 </div>
 {% endfor %}

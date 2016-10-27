@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<div class='container bg'>
+<div class='container'>
+  <h1 class='page-header'>Mezihoří</h1>
   <div class='row'>
-    <h1 class='page-header'>Mezihoří</h1>
     {{ world_characteristics|safe }}
   </div>
 </div>
-<div class='container bg'>
+<div class='container'>
+  <h1 class='page-header'>Rasy</h1>
   <div class='row'>
-    <h1 class='page-header'>Rasy</h1>
     {% comment 'until images are available' %}
     <ul class="media-list">
     {% for race in races %}
