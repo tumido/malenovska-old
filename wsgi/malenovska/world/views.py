@@ -1,6 +1,8 @@
 from django.views import generic
 from .models import Race
 
+from general.models import AboutWidget
+
 
 class WorldView(generic.ListView):
     """

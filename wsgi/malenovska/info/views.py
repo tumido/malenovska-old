@@ -21,6 +21,7 @@ class InfoView(generic.ListView):
         context = super(InfoView, self).get_context_data(**kwargs)
         # get data - text based
         for text in AboutWidget.objects.filter(identifier__contains='info'):
+            print(text.identifier)
             context[text.identifier] = text.text
         # import also the text beside the info panels
         context['texts'] = TextOptions.objects.filter(
