@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^info/', include('info.urls')),
     url(r'^rules/', include('rules.urls')),
     url(r'^legends/', include('legends.urls')),
+    url(r'^health$', health),
     url(r'^', include('news.urls'))
 ]
