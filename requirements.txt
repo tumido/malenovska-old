@@ -6,3 +6,4 @@ django-wysiwyg-redactor
 openpyxl
 Pillow
 whitenoise
+django-health-check

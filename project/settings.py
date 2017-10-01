@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv(
     '9e4@&tw46$l31)zrqe3wi+-slqm(ruvz&se0^%9#6(_w3ui!c0'
 )
 
-DEBUG = True
+DEBUG = True if os.environ.get('DJANGO_DEBUG') else False
 
 ALLOWED_HOSTS = ['*']  # FIXME!
 
@@ -25,6 +25,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'health_check',
+    'health_check.db',
     'redactor',
     'general',
     'info',
