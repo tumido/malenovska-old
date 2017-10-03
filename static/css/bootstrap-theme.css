@@ -190,6 +190,7 @@ html {
   margin-top        : 10px;
   margin-bottom     : 10px;
   background-color  : #F2F2F2;
+  border-radius     : 2px;
 }
 .container > .row {
   padding         : 15px 60px 10px;
@@ -282,7 +283,7 @@ html {
 }
 .tab-content {
   padding         : 10px;
-  background-color: #fff;
+  background-color: #eee;
 }
 .input-group-addon {
   width     : 20%;
@@ -334,25 +335,34 @@ html {
   margin: 0;
 }
 .nav-tabs > li > a {
-  color : #000;
-  margin: 0;
+  color        : #000;
+  margin       : 0;
+  border-radius: 0;
 }
 .nav-tabs > li {
-  float                  : none;
-  background-color       : rgba(0, 0, 0, 0.075);
-  border-top-left-radius : 4px;
-  border-top-right-radius: 4px;
-  display                : inline-block;
-  *display               : inline;
+  float           : none;
+  background-color: rgba(0, 0, 0, 0.075);
+  flex-grow       : 1;
   /* ie7 fix */
-  zoom                   : 1;
+  zoom            : 1;
   /* hasLayout ie7 trigger */
 }
 .nav-tabs {
-  text-align: center;
+  text-align      : center;
+  position        : relative;
+  box-shadow      : 0 0 8px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  z-index         : 1;
+  display         : flex;
 }
-.nav-tabs > li > a:hover {
-  background-color: #e6e6e6;
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  color              : #000;
+  cursor             : default;
+  background-color   : #fff;
+  border             : 1px solid #ddd;
+  border-bottom-color: transparent;
 }
 .form-group.required .input-group-addon:after {
   content  : "*";

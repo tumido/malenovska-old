@@ -30,17 +30,21 @@ $(document).ready(function() {
       {% endfor %}
       <input type="submit" class='form-control btn-default' value="Registrovat se" />
     </form>
-    {% else %}
+    {% elif after_registration %}
     <div class='col-md-5'>
       <div class="panel panel-default">
         <div class="panel-body center">
-          {% if after_register_open %}
           <h3>Registrace byla uzavřena</h3>
           <p>Uvidíme se na bitvě!</p>
-          {% else %}
+        </div>
+      </div>
+    </div>
+    {% elif before_registration %}
+    <div class='col-md-5'>
+      <div class="panel panel-default">
+        <div class="panel-body center">
           <h3>Registrace bude brzy spuštěna</h3>
           <p>A až se tak stane, zde naleznete registrační formulář</p>
-          {% endif %}
         </div>
       </div>
     </div>
@@ -51,42 +55,44 @@ $(document).ready(function() {
   {{register_down|safe}}
   </div>
 </div>
-{% if after_register_open and players_list %}
+{% if not before_registration and players_list %}
 <div class='container'>
   <h1 class='page-header' id='signed-up'>Přihlášení hráči</h1>
-  <div class='row' id='tabs'>
-    <ul class="nav nav-tabs" role="tablist">
-      {% for race, players in players_list %}
-      <li role="presentation"><a href="#race{{race.id}}" aria-controls="race{{race.id}}" role="tab" data-toggle="tab">{{race.name}} ({{players|length}}/{{race.limit}})</a></li>
-      {% endfor %}
-    </ul>
-    <div class="tab-content">
+  <div id='tabs'>
+    <div class="row">
+      <ul class="nav nav-tabs" role="tablist">
         {% for race, players in players_list %}
-        <div role="tabpanel" class="tab-pane fade clearfix" id="race{{race.id}}">
-          <div class='row'>
-          {% for player in players %}
-          <div class='col-md-4'>
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <div class='col-xs-3'>
-                  <span class="glyphicon glyphicon-user"></span>
-                </div>
-                <div class='col-xs-9'>
-                <p><b>{% if player.nick %}{{player.nick}}{% else %}{{player.name}}{%endif%}</b></br>
-                {{player.name}} {{player.surname}}</br>
-                <i>{% if player.group %}{{player.group}}{% else %}</br>{%endif%}</i></p>
-                </div>
+        <li role="presentation"><a href="#race{{race.id}}" aria-controls="race{{race.id}}" role="tab" data-toggle="tab">{{race.name}} ({{players|length}}/{{race.limit}})</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="row tab-content">
+      {% for race, players in players_list %}
+      <div role="tabpanel" class="tab-pane fade clearfix" id="race{{race.id}}">
+        <div class='row'>
+        {% for player in players %}
+        <div class='col-md-4'>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class='col-xs-3'>
+                <span class="glyphicon glyphicon-user"></span>
+              </div>
+              <div class='col-xs-9'>
+              <p><b>{% if player.nick %}{{player.nick}}{% else %}{{player.name}}{%endif%}</b></br>
+              {{player.name}} {{player.surname}}</br>
+              <i>{% if player.group %}{{player.group}}{% else %}</br>{%endif%}</i></p>
               </div>
             </div>
           </div>
-          {% if forloop.counter|divisibleby:3 %}
-          </div>
-          <div class='row'>
-          {% endif %}
-          {% endfor %}
-          </div>
         </div>
+        {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class='row'>
+        {% endif %}
         {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
 </div>

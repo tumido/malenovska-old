@@ -82,12 +82,15 @@ class RegisterView(generic.CreateView):
             race=r.id).order_by('surname')) for r in races]
 
         # let template know if registration is already over
-        reg_open = timezone.localtime(
-            DateOptions.objects.get(identifier='register_lock').date)
-        context['after_register_open'] = reg_open <= timezone.now()
+        reg_close = DateOptions.objects.get(identifier='register_lock').date
+        reg_open = DateOptions.objects.get(identifier='register_unlock').date
+
+        context['after_registration'] = reg_close <= timezone.now()
+        context['before_registration'] = reg_open >= timezone.now()
 
         # get title
         context['page_name'] = AboutWidget.objects.get(
             identifier='page_name').name
 
+        print(reg_open)
         return context
